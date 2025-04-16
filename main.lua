@@ -147,7 +147,23 @@ function StartCowMilking()
 
         wait(2)
 
-        
+        -- Enter remaining 8 cows
+        local enteredSecondBatch = {}
+        for i = 13, 20 do
+            if cowsToEnter[i] then
+                local enterArgs = {
+                    [1] = {
+                        [1] = cowsToEnter[i]
+                    },
+                    [2] = Barn
+                }
+                Larry:WaitForChild("EVTHerdRequest"):FireServer(unpack(enterArgs))
+                table.insert(enteredSecondBatch, cowsToEnter[i])
+            end
+        end
+
+        wait(2)
+
         -- Milk remaining cows
         for _, cow in pairs(enteredSecondBatch) do
             local milkArgs = {
